@@ -7,7 +7,7 @@ import random
 
 # Konfiguration
 TARGET_API_URL = "https://crossisearch.lovable.app/api/public/submit"
-API_KEY = "csk_8ea41d65655b1b26fe2a1600c516874f1602a3b50395a1dd750e16de42639310"
+API_KEY = "csk_adm_e5133d11c5d7aa8f2f29c13758dab6a6f95605f9688c386c50b7e04791bfc5fd"
 TOTAL_ARTICLES = 300
 MAX_WORKERS = 20
 
