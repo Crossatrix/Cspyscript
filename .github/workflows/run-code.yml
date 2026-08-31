@@ -6,19 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  # 1. Vorbereitung: Vorherige Artifacts löschen (falls du das Plugin nutzt)
-  clean-old-runs:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Vorherige Artifacts entfernen
-        uses: geekyeggo/delete-artifact-one-by-one@v2
-        with:
-          name: 'log-run-*'
-        continue-on-error: true
-
-  # 2. Die 50 parallelen Durchläufe
   run-code-parallel:
-    needs: clean-old-runs
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -40,16 +28,14 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Local-Logs säubern & Ordner erstellen
-        run: |
-          mkdir -p logs
-          rm -f logs/run${{ matrix.run-id }}.log
+      - name: Ordner vorbereiten
+        run: mkdir -p logs
 
       - name: Ausführung ${{ matrix.run-id }} & Log erstellen
         run: python code.py > logs/run${{ matrix.run-id }}.log 2>&1
 
-      - name: Log als Artifact hochladen
+      - name: Log hochladen
         uses: actions/upload-artifact@v4
         with:
-          name: log-run-${{ matrix.run-id }}
+          name: all-python-logs
           path: logs/run${{ matrix.run-id }}.log
