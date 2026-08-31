@@ -28,14 +28,5 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Ordner vorbereiten
-        run: mkdir -p logs
-
-      - name: Ausführung ${{ matrix.run-id }} & Log erstellen
-        run: python code.py > logs/run${{ matrix.run-id }}.log 2>&1
-
-      - name: Log hochladen
-        uses: actions/upload-artifact@v4
-        with:
-          name: all-python-logs
-          path: logs/run${{ matrix.run-id }}.log
+      - name: Ausführung ${{ matrix.run-id }}
+        run: python code.py
